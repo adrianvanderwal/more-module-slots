@@ -1,0 +1,1 @@
+more-module-slots
