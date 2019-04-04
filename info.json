@@ -1,0 +1,10 @@
+{
+    "name": "more-module-slots",
+    "version": "0.0.1",
+    "date": "2019-03-19",
+    "title": "More Module Slots",
+    "author": "EnigmaticAussie",
+    "dependencies": ["base"],
+    "description": "Add more module slots to anything that can currently accept them, and sometimes, some that dont.",
+    "factorio_version": "0.17"
+  }
