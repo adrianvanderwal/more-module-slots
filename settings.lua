@@ -21,5 +21,48 @@ data:extend {
         setting_type = 'startup',
         default_value = false,
         order = 'aa'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.assembling_machine,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.furnace,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.mining_drill,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.rocket_silo,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.beacon,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.lab,
+        setting_type = 'startup',
+        default_value = true,
+        order = 'ac'
     }
+
 }

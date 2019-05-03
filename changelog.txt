@@ -1,0 +1,12 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+Date: 01. 05. 2019
+  Minor Features:
+    - Added Labs to list of can have modules
+    - Added settings for all types of buildings to be turned on and off
+        - Centrifuges, Chemical Plants and Oil Refineries are all classed as assembling machines
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+Date: ???
+  Major Features:
+    - Initial Release
