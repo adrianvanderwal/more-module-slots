@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.3
+Date: 03. 05. 2019
+  Major Features:
+    - Added Optional Dependency for:
+      - Angel's Mods
+      - Bob's Mods
+      - Currently the majority of Angel's and Bob's buildings are assembling machines or mining drills and as such are affected by the
+        related settings
+  Changes:
+    - Added missing locale for settings added in 0.0.2
+---------------------------------------------------------------------------------------------------
 Version: 0.0.2
 Date: 01. 05. 2019
   Minor Features:
