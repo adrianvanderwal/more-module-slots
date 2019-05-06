@@ -63,6 +63,12 @@ data:extend {
         setting_type = 'startup',
         default_value = true,
         order = 'ac'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.extra_modules,
+        setting_type = 'startup',
+        default_value = false,
+        order = 'ad'
     }
-
 }

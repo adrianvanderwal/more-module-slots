@@ -18,7 +18,8 @@ more_module_slots_defines.names.settings = {
     mining_drill = more_module_slots_defines.name_prefix .. 'mining-drill',
     rocket_silo = more_module_slots_defines.name_prefix .. 'rocket-silo',
     beacon = more_module_slots_defines.name_prefix .. 'beacon',
-    lab = more_module_slots_defines.name_prefix .. 'lab'
+    lab = more_module_slots_defines.name_prefix .. 'lab',
+    extra_modules = more_module_slots_defines.name_prefix .. 'extra-modules'
 }
 
 return more_module_slots_defines

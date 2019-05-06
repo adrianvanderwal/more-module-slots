@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.4
+Date: 06. 05. 2019
+  Major Features:
+    - Added an optional tier of modules, lower than the base game
+  Minor Features
+    - Added optional support for module requester
+---------------------------------------------------------------------------------------------------
 Version: 0.0.3
 Date: 03. 05. 2019
   Major Features:
