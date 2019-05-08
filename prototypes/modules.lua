@@ -22,7 +22,7 @@ local module_types = {
     ['effectivity'] = {
         name = 'effectivity',
         effect = {
-            consumption = {bonus = -0.3}
+            consumption = {bonus = -0.15}
         }
     }
 }
