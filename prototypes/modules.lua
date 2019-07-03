@@ -135,7 +135,7 @@ for _, module_type in pairs(module_types) do
     for _, technology in pairs(data.raw.technology) do
         if data.raw.technology[technology.name] and data.raw.technology[technology.name].prerequisites then
             for i, prerequisite in ipairs(data.raw.technology[technology.name].prerequisites) do
-                log(prerequisite)
+                --log(prerequisite)
                 if prerequisite == module_name .. '-module' then
                     table.remove(data.raw.technology[technology.name].prerequisites, i)
                     table.insert(data.raw.technology[technology.name].prerequisites, module_name .. '-module-1')

@@ -1,7 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.6
+Date: 27. 05. 2019
+  Bugfixes:
+    - Fixed crash when UltimateBelts was installed, and tier 0 modules were enabled
+  Minor Features:
+    - Added optional support for UltimateBelts
+  Changes:
+    - Adjusted some locale keys
+---------------------------------------------------------------------------------------------------
 Version: 0.0.5
 Date: 07. 05. 2019
-  Minor Features
+  Minor Features:
     - Balancing of effectivity-module-0
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.4

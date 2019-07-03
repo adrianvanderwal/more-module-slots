@@ -57,7 +57,3 @@ for name, add_more_modules in pairs(can_have_modules) do
         end
     end
 end
-
-if settings.startup[more_module_slots_defines.names.settings.extra_modules].value then
-    require('prototypes.modules')
-end
