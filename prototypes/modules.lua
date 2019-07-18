@@ -1,82 +1,87 @@
---[[
-    Add tier 0 modules
-    Set modules to be researched earlier
-]]
+local more_module_slots_defines = require('defines')
 local module_types = {
-    ['speed'] = {
-        name = 'speed',
-        effect = {
-            speed = {bonus = 0.1},
-            consumption = {bonus = 0.25}
-        }
-    },
-    ['productivity'] = {
-        name = 'productivity',
-        effect = {
-            productivity = {bonus = 0.02},
-            consumption = {bonus = 0.2},
-            pollution = {bonus = 0.025},
-            speed = {bonus = -0.15}
-        }
-    },
-    ['effectivity'] = {
-        name = 'effectivity',
-        effect = {
-            consumption = {bonus = -0.15}
-        }
-    }
+    ['speed'] = true,
+    ['productivity'] = true,
+    ['effectivity'] = true
 }
 
+function trunc(num, digits)
+    local mult = 10 ^ (digits)
+    return math.modf(num * mult) / mult
+end
+
+local function get_speed_bonus(tier)
+    local bonus = 0.2
+    if tier == 1 then
+        return bonus
+    end
+    local difference = 0.1
+    for i = 2, tier, 1 do
+        bonus = bonus + difference
+        difference = difference * 2
+    end
+    return bonus
+end
+
+local function get_speed_module_effects(tier)
+    return {
+        --speed = {bonus = get_speed_bonus(tier)},
+        speed = {bonus = 0.2 + 0.1 * (2 ^ (tier - 1) - 1)},
+        consumption = {bonus = (0.1 * tier + 0.4)}
+    }
+end
+local function get_productivity_module_effects(tier)
+    return {
+        productivity = {bonus = (0.02 + 0.02 ^ tier)},
+        consumption = {bonus = (0.2 * tier + 0.2)},
+        pollution = {bonus = (0.025 * tier + 0.025)},
+        speed = {bonus = -0.15}
+    }
+end
+local function get_effectivity_module_effects(tier)
+    return {
+        consumption = {bonus = -(0.10 * tier + 0.20)}
+    }
+end
+
+local function get_module_recipe(type, tier)
+    -- exception for tier 1
+    if tier == 1 then
+        return {
+            {'electronic-circuit', 5},
+            {'advanced-circuit', 5}
+        }
+    end
+    return {
+        {'advanced-circuit', 5},
+        {'processing-unit', 5},
+        {type .. '-module-' .. tier - 1, tier + 2}
+    }
+end
+
+-- remove vanilla modules
+
+-- insert new ones
+for type, _ in pairs(module_types) do
+    for i = 1, settings.startup[more_module_slots_defines.names.settings.more_modules_tiers].value, 1 do
+        if type == 'speed' then
+
+        end
+    end
+end
+
+-- rebuild modules from the ground up.
+-- if module-0
+-- add items, recipes and tech
+
+-- change recipes that require module-1's
 for _, module_type in pairs(module_types) do
     -- get base module
-
     local module_name = module_type.name
     local module_item = table.deepcopy(data.raw.module[module_name .. '-module'])
     local module_recipe = table.deepcopy(data.raw.recipe[module_name .. '-module'])
     local module_technology = table.deepcopy(data.raw.technology[module_name .. '-module'])
-
-    -- add module-0 to tier 1 recipe
-    table.insert(data.raw.recipe[module_name .. '-module'].ingredients, {module_name .. '-module-0', 2})
-
-    -- adjust details for tier 0
-    module_item.name = module_name .. '-module-0'
-    module_item.icon = '__more-module-slots__/graphics/' .. module_item.name .. '.png'
-    module_item.tier = 0
-    module_item.order = 'a[speed]-a[speed-module-0]'
-    module_item.effect = module_type.effect
-
-    module_recipe.name = module_name .. '-module-0'
-    module_recipe.ingredients = {
-        {'electronic-circuit', 10},
-        {'steel-plate', 1}
-    }
-    module_recipe.energy_required = 5
-    module_recipe.result = module_name .. '-module-0'
-
-    -- technology related
-    module_technology.name = module_name .. '-module-0'
-    module_technology.prerequisites = {
-        'mms-extra-modules'
-    }
-    module_technology.unit.ingredients = {{'automation-science-pack', 1}}
-    module_technology.effects = {
-        {
-            type = 'unlock-recipe',
-            recipe = module_name .. '-module-0'
-        }
-    }
-
-    data:extend(
-        {
-            module_item,
-            module_recipe,
-            module_technology
-        }
-    )
-    -- add technology to modules prerequisites
-    table.insert(data.raw.technology.modules.prerequisites, module_technology.name)
-
-    --redo tier 1 modules
+    -- redo tier 1 modules
     -- rename tier 1 module item
     local tier_1_item = table.deepcopy(data.raw.module[module_name .. '-module'])
     tier_1_item.name = module_name .. '-module-1'
@@ -92,8 +97,6 @@ for _, module_type in pairs(module_types) do
     data.raw.technology[module_name .. '-module'] = nil
 
     data:extend({tier_1_item, tier_1_recipe, tier_1_technology})
-
-    --log(serpent.block(data.raw.module))
 
     -- replace all tier 1 recipe items
     for _, recipe in pairs(data.raw.recipe) do
@@ -135,7 +138,6 @@ for _, module_type in pairs(module_types) do
     for _, technology in pairs(data.raw.technology) do
         if data.raw.technology[technology.name] and data.raw.technology[technology.name].prerequisites then
             for i, prerequisite in ipairs(data.raw.technology[technology.name].prerequisites) do
-                --log(prerequisite)
                 if prerequisite == module_name .. '-module' then
                     table.remove(data.raw.technology[technology.name].prerequisites, i)
                     table.insert(data.raw.technology[technology.name].prerequisites, module_name .. '-module-1')
@@ -153,23 +155,99 @@ for _, module_type in pairs(module_types) do
     end
 end
 
--- add the overall technology
-local module_technology = table.deepcopy(data.raw.technology.modules)
-module_technology.name = 'mms-extra-modules'
-module_technology.prerequisites = {
-    'electronics',
-    'steel-processing'
-}
-module_technology.unit.ingredients = {{'automation-science-pack', 1}}
-data:extend(
-    {
-        module_technology
-    }
-)
+--[[
+        Add tier 0 modules
+        Set modules to be researched earlier
+    ]]
+if settings.startup[more_module_slots_defines.names.settings.tier_0_modules].value then
+    for _, module_type in pairs(module_types) do
+        -- get base module
 
--- add support for module-requester
-if mods['module-requestor'] then
-    if data.raw.technology['module-requestor'] then
-        data.raw.technology['module-requestor'].prerequisites = {'mms-extra-modules', 'construction-robotics'}
+        local module_name = module_type.name
+        local module_item = table.deepcopy(data.raw.module[module_name .. '-module'])
+        local module_recipe = table.deepcopy(data.raw.recipe[module_name .. '-module'])
+        local module_technology = table.deepcopy(data.raw.technology[module_name .. '-module'])
+
+        -- add module-0 to tier 1 recipe
+        table.insert(data.raw.recipe[module_name .. '-module'].ingredients, {module_name .. '-module-0', 2})
+
+        -- adjust details for tier 0
+        module_item.name = module_name .. '-module-0'
+        -- module_item.icon = '__more-module-slots__/graphics/module/' .. module_name .. '-module.png'
+
+        module_item.icons = {
+            {
+                icon = '__more-module-slots__/graphics/module/' .. module_name .. '-module.png',
+                icon_size = 32
+            }
+        }
+
+        module_item.tier = 0
+        module_item.order = module_type.order .. '[' .. module_name .. ']-a[' .. module_item.name .. ']'
+        module_item.effect = module_type.effect
+
+        module_recipe.name = module_name .. '-module-0'
+        module_recipe.ingredients = {
+            {'electronic-circuit', 10},
+            {'steel-plate', 1}
+        }
+        module_recipe.energy_required = 5
+        module_recipe.result = module_name .. '-module-0'
+
+        -- technology related
+        module_technology.name = module_name .. '-module-0'
+        module_technology.prerequisites = {
+            'mms-tier-0-modules'
+        }
+        module_technology.unit.ingredients = {{'automation-science-pack', 1}}
+        module_technology.effects = {
+            {
+                type = 'unlock-recipe',
+                recipe = module_name .. '-module-0'
+            }
+        }
+
+        data:extend(
+            {
+                module_item,
+                module_recipe,
+                module_technology
+            }
+        )
+        -- add technology to modules prerequisites
+        table.insert(data.raw.technology.modules.prerequisites, module_technology.name)
+    end
+
+    -- add the overall technology
+    local module_technology = table.deepcopy(data.raw.technology.modules)
+    module_technology.name = 'mms-tier-0-modules'
+    module_technology.prerequisites = {
+        'electronics',
+        'steel-processing'
+    }
+    module_technology.unit.ingredients = {{'automation-science-pack', 1}}
+    data:extend({module_technology})
+
+    -- add support for module-requestor
+    if mods['module-requestor'] then
+        if data.raw.technology['module-requestor'] then
+            data.raw.technology['module-requestor'].prerequisites = {'mms-tier-0-modules', 'construction-robotics'}
+        end
+    end
+end
+if settings.startup[more_module_slots_defines.names.settings.more_modules].value then
+    -- add extra tiers above vanilla modules
+    for module_type, _ in pairs(module_types) do
+        if data.raw.module[module_type .. '-module-3'] then
+            local item = table.deepcopy(data.raw.module[module_type .. '-3'])
+            local tech = table.deepcopy(data.raw.technology[module_type .. '-3'])
+            local recipe = table.deepcopy(data.raw.recipe[module_type .. '-3'])
+
+            for i = 4, 3 + settings.startup[more_module_slots_defines.names.settings.more_modules_count].value, 1 do
+                -- statements
+            end
+        else
+            error('Tier 3 ' .. module_type .. ' module does not exist.')
+        end
     end
 end

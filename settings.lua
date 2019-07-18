@@ -66,9 +66,34 @@ data:extend {
     },
     {
         type = 'bool-setting',
-        name = more_module_slots_defines.names.settings.extra_modules,
+        name = more_module_slots_defines.names.settings.tier_0_modules,
         setting_type = 'startup',
         default_value = false,
-        order = 'ad'
+        order = 'ba'
+    },
+    {
+        type = 'bool-setting',
+        name = more_module_slots_defines.names.settings.more_modules,
+        setting_type = 'startup',
+        default_value = false,
+        order = 'bb'
+    },
+    {
+        type = 'double-setting',
+        name = more_module_slots_defines.names.settings.more_modules_tiers,
+        setting_type = 'startup',
+        default_value = 8,
+        --maximum_value = 2,
+        minimum_value = 3,
+        order = 'bc'
+    },
+    {
+        type = 'double-setting',
+        name = more_module_slots_defines.names.settings.more_modules_multiplier,
+        setting_type = 'startup',
+        default_value = 0.3,
+        maximum_value = 1,
+        minimum_value = 0.01,
+        order = 'bd'
     }
 }

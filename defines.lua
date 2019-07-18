@@ -19,7 +19,10 @@ more_module_slots_defines.names.settings = {
     rocket_silo = more_module_slots_defines.name_prefix .. 'rocket-silo',
     beacon = more_module_slots_defines.name_prefix .. 'beacon',
     lab = more_module_slots_defines.name_prefix .. 'lab',
-    extra_modules = more_module_slots_defines.name_prefix .. 'extra-modules'
+    tier_0_modules = more_module_slots_defines.name_prefix .. 'tier-0-modules',
+    more_modules = more_module_slots_defines.name_prefix .. 'more-modules',
+    more_modules_tiers = more_module_slots_defines.name_prefix .. 'more-modules-tiers',
+    more_modules_multiplier = more_module_slots_defines.name_prefix .. 'more-modules-multiplier',
 }
 
 return more_module_slots_defines
