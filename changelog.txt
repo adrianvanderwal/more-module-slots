@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.9
+Date: 12. 11. 2019
+  Changes:
+    - Added ability to blacklist entities
+  Bugfixes:
+    - Added DeepMine Beacon to blacklist as proof of concept
+---------------------------------------------------------------------------------------------------
 Version: 0.0.8
 Date: 29. 10. 2019
   Bugfixes:

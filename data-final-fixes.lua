@@ -16,7 +16,7 @@ local can_have_modules = {
 for name, add_more_modules in pairs(can_have_modules) do
     if add_more_modules then
         for _, k in pairs(data.raw[name]) do
-            if not starts_with(k.name, 'creative') then
+            if not starts_with(k.name, 'creative') and not mms.blacklist[k.name] then
                 if k.allowed_effects then
                     log(k.name)
 
