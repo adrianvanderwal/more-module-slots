@@ -19,7 +19,7 @@ for name, add_more_modules in pairs(can_have_modules) do
     if add_more_modules then
         for _, k in pairs(data.raw[name]) do
             if not starts_with(k.name, 'creative') then
-                if k.allowed_effects then
+                if (not k.allowed_effects) or (#k.allowed_effects > 0) then
                     log(k.name)
 
                     -- check if has module slots
@@ -33,8 +33,8 @@ for name, add_more_modules in pairs(can_have_modules) do
                         else
                             num_slots = num_slots + factor
                         end
-                        if num_slots > max_slots then 
-                            num_slots = max_slots 
+                        if num_slots > max_slots then
+                            num_slots = max_slots
                         end
                         data.raw[name][k.name].module_specification.module_slots = num_slots
                     else
