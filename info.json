@@ -1,9 +1,9 @@
 {
     "name": "more-module-slots",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "date": "2019-03-19",
     "title": "More Module Slots",
-    "author": "EnigmaticAussie",
+    "author": "EnigmaticAussie, Honktown",
     "dependencies": ["base", "?angelssmelting", "?angelspetrochem", "?angelsrefining", "?bobassembly", "?bobgreenhouse", "?bobmining", "?burner-fuel-bonus", "?module-requestor", "?ultimatebelts"],
     "description": "Add more module slots to anything that can currently accept them, and sometimes, some that dont.",
     "factorio_version": "0.18"

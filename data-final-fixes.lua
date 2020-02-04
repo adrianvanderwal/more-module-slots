@@ -23,7 +23,7 @@ for name, add_more_modules in pairs(can_have_modules) do
                     log(k.name)
 
                     -- check if has module slots
-                    if k.module_specification then
+                    if k.module_specification and k.module_specification.module_slots and k.module_specification.module_slots > 0 then
                         --log(serpent.block(k.module_specification))
                         -- has module slots, add more
                         local num_slots = k.module_specification.module_slots
