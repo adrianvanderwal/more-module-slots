@@ -41,6 +41,7 @@ for _, module_type in pairs(module_types) do
     -- adjust details for tier 0
     module_item.name = module_name .. '-module-0'
     module_item.icon = '__more-module-slots__/graphics/' .. module_item.name .. '.png'
+    module_item.icon_size = 32
     module_item.tier = 0
     module_item.order = 'a[speed]-a[speed-module-0]'
     module_item.effect = module_type.effect
